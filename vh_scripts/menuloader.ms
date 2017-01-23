@@ -21,8 +21,9 @@ the prior written consent of vh.
 
 -- #TODO: Batchfile to copy from installation dir to user pref dirs.
 -- #TODO: Refactor
--- #TODO: IMP loop for building actions and assigning to main menu
+-- #TODO: IMP loop for building actionItems and assigning to main menu
 -- #TODO: programically find 'user_scripts_dir'
+-- #TODO: remove dir hardcodings
 
 -- globals
 menu_name = "VH Scripts"
