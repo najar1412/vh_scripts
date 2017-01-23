@@ -19,54 +19,49 @@ the prior written consent of vh.
 
 -- #TODO: Batchfile to copy from installation dir to user pref dirs.
 -- #TODO: Refactor
+-- #TODO: IMP loop for building actions and assigning to main menu
+-- #TODO: programically find 'user_scripts_dir'
 
-ScriptDir = "V:\Scripts\*.mcr"
-InnitMcr = "V:\Scripts\SR__Menu.mcr"
-
-print ("Loading scripts from " + ScriptDir)
-print (fileIn)
-MacrFileList = getFiles (ScriptDir)
-
-/* Load all the macros before the Menu script */
-for File in MacrFileList do (
-	print (File)
-	if (File != InnitMcr) do (
-		print ("Loading .mcr: " + File)
-		fileIn File
-	)
-)
-
+-- globals
 menu_name = "VH Scripts"
 separ = menuMan.createSeparatorItem()
 
+-- get scripts dir, and local user scripts dir
+scripts_dir = "V:\Scripts\*.mcr"
+user_scripts_dir = "C:\Users\render\AppData\Local\Autodesk\3dsMax\2017 - 64bit\ENU\usermacros"
 
--- Check if menu exists
+-- process scripts into memory
+Macro_scripts_list = getFiles (scripts_dir)
+
+-- Load macros before main menu init
+for script in Macro_scripts_list do (
+	if (script != user_scripts_dir) do (
+		fileIn script
+	)
+)
+
+-- Check if menu exists, if so unreg.
 find_menu_name = menuMan.findMenu menu_name
 if (find_menu_name != undefined) do (
     menuMan.unRegisterMenu find_menu_name
 )
 
---get the main menu bar
+-- get the main menu bar, create a menu called VH Scripts, create a SubMenuItem
 default_main_menu = menuMan.getMainMenuBar()
-
---create a menu called VH Scripts
 theMenu = menuMan.createMenu menu_name
-
---create a SubMenuItem
 theSubMenu = menuMan.createSubMenuItem menu_name theMenu
 
 --add the SubMenu to the Main Menu
 default_main_menu.addItem theSubMenu (default_main_menu.numItems()+1)
 
-
 --create an ActionItem from the MacroScript
-act_idtool = menuMan.createActionItem "IDTool" menu_name
 act_quick_attach = menuMan.createActionItem "Quick_Attach" menu_name
+act_idtool = menuMan.createActionItem "IDTool" menu_name
 
 --add the ActionItem to the menu
-theMenu.addItem act_idtool (theMenu.numItems()+1)
 theMenu.addItem act_quick_attach (theMenu.numItems()+1)
--- theMenu.addItem separ (theMenu.numItems()+1)
+theMenu.addItem separ (theMenu.numItems()+1)
+theMenu.addItem act_idtool (theMenu.numItems()+1)
 
 --update the menu bar
 menuMan.updateMenuBar()
