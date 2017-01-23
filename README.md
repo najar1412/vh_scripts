@@ -4,6 +4,7 @@ VH Scripts
 **vh_scripts** Menu item for all VH scripts.
 
 ** Only tested on 3ds max 2017
+'/scripts/\*.mcr' copyright to their respective owners.
 
 Features
 ----------

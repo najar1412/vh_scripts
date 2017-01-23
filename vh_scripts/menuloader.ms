@@ -14,6 +14,8 @@ unpublished proprietary information written by vh., and are
 protected by Federal copyright law. They may not be disclosed to third
 parties or copied or duplicated in any form, in whole or in part, without
 the prior written consent of vh.
+
+/scripts/*.mcr copyright to their respective owners.
 **************************************************************************
 */
 
@@ -56,11 +58,13 @@ default_main_menu.addItem theSubMenu (default_main_menu.numItems()+1)
 
 --create an ActionItem from the MacroScript
 act_quick_attach = menuMan.createActionItem "Quick_Attach" menu_name
+act_rendermask = menuMan.createActionItem "RenderMask" menu_name
 act_idtool = menuMan.createActionItem "IDTool" menu_name
 
 --add the ActionItem to the menu
 theMenu.addItem act_quick_attach (theMenu.numItems()+1)
 theMenu.addItem separ (theMenu.numItems()+1)
+theMenu.addItem act_rendermask (theMenu.numItems()+1)
 theMenu.addItem act_idtool (theMenu.numItems()+1)
 
 --update the menu bar
